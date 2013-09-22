@@ -85,6 +85,7 @@ var bibtexify = (function($) {
                     itemStr += '  author = { ';
                     for (var index = 0; index < value.length; index++) {
                         if (index > 0) { itemStr += " and "; }
+                        if (value[index].first) {itemStr += value[index].first + " ";}
                         itemStr += value[index].last;
                     }
                     itemStr += ' },\n';
