@@ -2496,6 +2496,7 @@ var bibtexify = (function($) {
         // the main function which turns the entry into HTML
         entry2html: function(entryData, bib) {
             var itemStr = htmlify(bib2html[entryData.entryType.toLowerCase()](entryData));
+            itemStr += bib2html.abstr(entryData);
             itemStr += bib2html.links(entryData);
             itemStr += bib2html.bibtex(entryData);
             if (bib.options.tweet && entryData.url) {
@@ -2512,6 +2513,18 @@ var bibtexify = (function($) {
                 authorsStr += authorData[index].last;
             }
             return htmlify(authorsStr);
+        },
+        // adds abstract of the item
+        abstr: function(entryData) {
+            var itemStr = '';
+            if (entryData.abstr) {
+                itemStr += ' (<a title="Abstract of this article" href="#abstr-' +
+                        entryData.cite + '" data-toggle="collapse" ' + 
+                        'data-parent="#accordion" class="accordion-toggle">abstract</a>)' +
+                        '<div id="abstr-' + entryData.cite + 
+                        '" class="collapse well abstract">' + entryData.abstr + '</div>';
+            }
+            return itemStr;
         },
         // adds links to the PDF or url of the item
         links: function(entryData) {
